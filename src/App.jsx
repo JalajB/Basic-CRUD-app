@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import "./App.css";
 import ModalForm from "./Components/ModalForm";
 import Navbar from './Components/Navbar';
@@ -5,11 +6,11 @@ import TableList from "./Components/TableList";
 
 function App() {
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [modalMode, setModalMode] = useState('add');
 
   const handleOpen = (mode) => {
-    setIsModalOpen(true);
+    setIsOpen(true);
   }
 
   const handleSubmit = () => {
@@ -21,9 +22,13 @@ function App() {
   }
   return (
     <>
-      <Navbar />
+      <Navbar onOpen={() => handleOpen('add')} />
       <TableList />
-      <ModalForm />
+      <ModalForm isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        onSubmit={handleSubmit}
+
+      />
     </>
   );
 }
